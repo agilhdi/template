@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--=============== BOXICONS ===============-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+        <!--=============== BOOTSTRAP ===============-->
+        <link href="aset/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!--=============== CSS ===============-->
+        <style>
+            /*=============== GOOGLE FONTS ===============*/
+                @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap");
+
+                /*=============== VARIABLES CSS ===============*/
+                :root {
+                --header-height: 3rem;
+
+                /*========== Colors ==========*/
+                --hue: 174;
+                --sat: 63%;
+                --first-color: hsl(var(--hue), var(--sat), 40%);
+                --first-color-alt: hsl(var(--hue), var(--sat), 36%);
+                --title-color: hsl(var(--hue), 12%, 15%);
+                --text-color: hsl(var(--hue), 8%, 35%);
+                --body-color: hsl(var(--hue), 100%, 99%);
+                --container-color: #FFF;
+
+                /*========== Font and typography ==========*/
+                --body-font: 'Open Sans', sans-serif;
+                --h1-font-size: 1.5rem;
+                --normal-font-size: .938rem;
+                --tiny-font-size: .625rem;
+
+                /*========== z index ==========*/
+                --z-tooltip: 10;
+                --z-fixed: 100;
+                }
+
+                @media screen and (min-width: 968px) {
+                :root {
+                    --h1-font-size: 2.25rem;
+                    --normal-font-size: 1rem;
+                }
+                }
+
+                /*=============== BASE ===============*/
+                * {
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+                }
+
+                html {
+                scroll-behavior: smooth;
+                }
+
+                body {
+                margin: var(--header-height) 0 0 0;
+                font-family: var(--body-font);
+                font-size: var(--normal-font-size);
+                background-color: var(--body-color);
+                color: var(--text-color);
+                }
+
+                ul {
+                list-style: none;
+                }
+
+                a {
+                text-decoration: none;
+                }
+
+                img {
+                max-width: 100%;
+                height: auto;
+                }
+
+                /*=============== REUSABLE CSS CLASSES ===============*/
+                .section {
+                padding: 4.5rem 0 2rem;
+                }
+
+                .section__title {
+                font-size: var(--h1-font-size);
+                color: var(--title-color);
+                text-align: center;
+                margin-bottom: 1.5rem;
+                }
+
+                .section__height {
+                height: 100vh;
+                }
+
+                /*=============== LAYOUT ===============*/
+                .container {
+                max-width: 968px;
+                margin-left: 1rem;
+                margin-right: 1rem;
+                }
+
+                /*=============== HEADER ===============*/
+                .header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                background-color: var(--container-color);
+                z-index: var(--z-fixed);
+                transition: .4s;
+                }
+
+                /*=============== NAV ===============*/
+                .nav {
+                height: var(--header-height);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                }
+
+                .nav__img {
+                width: 32px;
+                border-radius: 50%;
+                }
+
+                .nav__logo {
+                color: var(--title-color);
+                font-weight: 600;
+                }
+
+                @media screen and (max-width: 767px) {
+                .nav__menu {
+                    position: fixed;
+                    bottom: 0;
+                    left: 0;
+                    background-color: var(--container-color);
+                    box-shadow: 0 -1px 12px hsla(var(--hue), var(--sat), 15%, 0.15);
+                    width: 100%;
+                    height: 4rem;
+                    padding: 0 1rem;
+                    display: grid;
+                    align-content: center;
+                    border-radius: 1.25rem 1.25rem 0 0;
+                    transition: .4s;
+                }
+                }
+
+                .nav__list, 
+                .nav__link {
+                display: flex;
+                }
+
+                .nav__link {
+                flex-direction: column;
+                align-items: center;
+                row-gap: 4px;
+                color: var(--title-color);
+                font-weight: 600;
+                }
+
+                .nav__list {
+                justify-content: space-around;
+                }
+
+                .nav__name {
+                font-size: var(--tiny-font-size);
+                /* display: none;*/ /* Minimalist design, hidden labels */
+                }
+
+                .nav__icon {
+                font-size: 1.5rem;
+                }
+
+                /*Active link*/
+                .active-link {
+                position: relative;
+                color: #fabf0a;
+                transition: .3s;
+                }
+
+                /* Minimalist design, active link */
+                /* .active-link::before{
+                content: '';
+                position: absolute;
+                bottom: -.5rem;
+                width: 4px;
+                height: 4px;
+                background-color: var(--first-color);
+                border-radius: 50%;
+                } */
+
+                /* Change background header */
+                .scroll-header {
+                box-shadow: 0 1px 12px hsla(var(--hue), var(--sat), 15%, 0.15);
+                }
+
+                /*=============== MEDIA QUERIES ===============*/
+                /* For small devices */
+                /* Remove if you choose, the minimalist design */
+                @media screen and (max-width: 320px) {
+                .nav__name {
+                    display: none;
+                }
+                }
+
+                /* For medium devices */
+                @media screen and (min-width: 576px) {
+                .nav__list {
+                    justify-content: center;
+                    column-gap: 3rem;
+                }
+                }
+
+                @media screen and (min-width: 767px) {
+                body {
+                    margin: 0;
+                }
+                .section {
+                    padding: 7rem 0 2rem;
+                }
+                .nav {
+                    height: calc(var(--header-height) + 1.5rem); /* 4.5rem */
+                }
+                .nav__img {
+                    display: none;
+                }
+                .nav__icon {
+                    display: none;
+                }
+                .nav__name {
+                    font-size: var(--normal-font-size);
+                    /* display: block; */ /* Minimalist design, visible labels */
+                }
+                .nav__link:hover {
+                    color: #fabf0a;
+                }
+
+                /* First design, remove if you choose the minimalist design */
+                .active-link::before {
+                    content: '';
+                    position: absolute;
+                    bottom: -.75rem;
+                    width: 4px;
+                    height: 4px;
+                    background-color: #fabf0a;
+                    border-radius: 50%;
+                }
+
+                /* Minimalist design */
+                /* .active-link::before{
+                    bottom: -.75rem;
+                } */
+                }
+
+                /* For large devices */
+                @media screen and (min-width: 1024px) {
+                .container {
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+                }
+        </style>
+
+        <title>Responsive bottom navigation</title>
+    </head>
+    <body>
+        <!--=============== HEADER ===============-->
+        <header class="header" id="header">
+            <nav class="nav container">
+                <a href="#" class="nav__logo">YEARBOOK.ID</a>
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="#home" class="nav__link active-link">
+                                <i class='bx bx-home-alt nav__icon'></i>
+                                <span class="nav__name">Home</span>
+                            </a>
+                        </li>
+                        
+                        <li class="nav__item">
+                            <a href="#product" class="nav__link">
+                                <i class='bx bx-user nav__icon'></i>
+                                <span class="nav__name">Product</span>
+                            </a>
+                        </li>
+
+                        <li class="nav__item">
+                            <a href="#pricing" class="nav__link">
+                                <i class='bx bx-book-alt nav__icon'></i>
+                                <span class="nav__name">Pricing</span>
+                            </a>
+                        </li>
+
+                        <li class="nav__item">
+                            <a href="#photography" class="nav__link">
+                                <i class='bx bx-briefcase-alt nav__icon'></i>
+                                <span class="nav__name">Photography</span>
+                            </a>
+                        </li>
+
+                        <li class="nav__item">
+                            <a href="#design" class="nav__link">
+                                <i class='bx bx-message-square-detail nav__icon'></i>
+                                <span class="nav__name">Design</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <img src="perfil.jpg" alt="" class="nav__img">
+            </nav>
+        </header>
+
+        <main>
+            <!--=============== HOME ===============-->
+            <section class="container section section__height" id="home">
+                <h2 class="section__title">Home</h2>
+                
+		<div class="row">	
+			<div class="col-md-8 order-md-1 mb-4">
+				<h4 class="mb-3">Cek Harga</h4>
+				<form class="needs-validation" novalidate>
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Jumlah</span>
+								</div>
+								<input type="number" class="form-control" id="jumlah" placeholder="jumlah lembar" required>
+								<div class="invalid-feedback">
+									Jumlah harus di isi.
+								</div>
+							</div>	
+						</div>
+						<div class="col-md-6 mb-3">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Ukuran</span>
+								</div>
+								<select id="ukuran" class="form-control">
+									<option selected>Pilih Ukuran Kertas</option>
+									<option>A5 (15x21cm)</option>
+									<option>A6 (15x10cm)</option>
+									<option>Setengah Folio (16,5x21cm)</option>
+									<option>B5 (15x25cm)</option>
+									<option>A4 (30x21cm)</option>
+									<option>Folio (33x21cm)</option>
+								</select>
+							</div>
+							<div class="invalid-feedback">
+								Ukuran Kertas Harus di isi.
+							</div>
+						</div>
+					</div>
+
+					<div class="mb-3">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Cover</span>
+							</div>
+							<select id="cover" class="form-control">
+								<option selected>Pilih Jenis Cover</option>
+								<option>Softcover</option>
+								<option>Hardcover</option>
+							</select>
+							<div class="invalid-feedback" style="width: 100%;">
+								Jenis Cover Harus Di isi.
+							</div>
+						</div>
+					</div>
+
+					<div class="mb-3">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Laminasi</span>
+							</div>
+							<select id="laminasi" class="form-control">
+								<option selected>Pilih Jenis Laminasi Cover</option>
+								<option>Tanpa Laminasi</option>
+								<option>UV</option>
+								<option>Glossy</option>
+								<option>Dof</option>
+								<option>Dof/Spot UV</option>
+							</select>
+							<div class="invalid-feedback" style="width: 100%;">
+								Jenis Cover Harus Di isi.
+							</div>
+						</div>
+					</div>
+
+					<div class="mb-3">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Kertas Isi</span>
+							</div>
+							<select id="kertasisi" class="form-control">
+								<option selected>Pilih Kertas isi</option>
+								<option>Art Paper 100 gr</option>
+								<option>Art Paper 120 gr</option>
+								<option>Art Paper 150 gr</option>
+								<option>HVS 80 gr</option>
+								<option>HVS 100 gr</option>
+								<option>Bookpaper</option>
+							</select>
+							<div class="invalid-feedback" style="width: 100%;">
+								Jenis Kertas isi Harus Di isi.
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Fullcolor</span>
+								</div>
+								<input type="number" class="form-control" id="fc" placeholder="Jumlah Halaman Warna" required>
+								<div class="invalid-feedback">
+									Jumlah halaman warna harus di isi.
+								</div>
+							</div>	
+						</div>
+						<div class="col-md-6 mb-3">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Black & White</span>
+								</div>
+								<input type="number" class="form-control" id="bw" placeholder="Jumlah Halaman Hitam Putih" required>
+								<div class="invalid-feedback">
+									Jumlah halaman hitam putih harus di isi.
+								</div>
+							</div>	
+						</div>
+					</div>
+					
+					<div class="mb-3">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Jilid</span>
+							</div>
+							<select id="jilid" class="form-control">
+								<option selected>Pilih Jenis Jilid</option>
+								<option>Hekter</option>
+								<option>Blok Lem</option>
+								<option>Jahit</option>
+								<option>Ring</option>
+							</select>
+							<div class="invalid-feedback" style="width: 100%;">
+								Jenis Jilid isi Harus Di isi.
+							</div>
+						</div>
+					</div>
+					
+					<hr class="mb-4">
+					<div class="custom-control custom-checkbox">
+					<input type="checkbox" class="custom-control-input" id="same-address">
+						<label class="custom-control-label" for="same-address">agree with the terms and conditions</label>
+					</div>
+					<hr class="mb-4">
+					<button class="btn btn-hitung btn-lg btn-block" type="submit">Hitung</button>
+				</form>
+			</div>
+
+			<div class="col-md-4 order-md-2">
+				<h4 class="d-flex justify-content-between align-items-center mb-3">
+					<span class="text-muted">Rincian</span>
+					<span class="badge badge-secondary badge-pill">3</span>
+				</h4>
+				<ul class="list-group mb-3">
+					<li class="list-group-item d-flex justify-content-between lh-condensed">
+					<div>
+						<h6 class="my-0">Harga Perbuah</h6>
+					</div>
+					<span class="text-muted">Rp. 12</span>
+					</li>
+					<li class="list-group-item d-flex justify-content-between lh-condensed">
+					<div>
+						<h6 class="my-0">Jumlah Pesanan</h6>
+					</div>
+					<span class="text-muted">Rp. 8</span>
+					</li>
+					<li class="list-group-item d-flex justify-content-between lh-condensed">
+					<div>
+						<h6 class="my-0">Berat Total</h6>
+					</div>
+					<span class="text-muted">2 Kg</span>
+					</li>
+					<li class="list-group-item d-flex justify-content-between bg-light">
+					<div class="text-success">
+						<h6 class="my-0">Promo Code</h6>
+						<small>YBX012</small>
+					</div>
+					<span class="text-success">-Rp. 5</span>
+					</li>
+					<li class="list-group-item d-flex justify-content-between">
+					<span><strong>Harga Total</strong></span>
+					<strong>Rp. 20</strong>
+					</li>
+				</ul>
+	
+				<form class="card p-2">
+					<div class="input-group">
+					<input type="text" class="form-control" placeholder="Promo Code">
+					<div class="input-group-append">
+						<button type="submit" class="btn btn-secondary">Tukarkan</button>
+					</div>
+					</div>
+				</form>
+			</div>
+		</div>
+            </section>
+
+            <!--=============== PRODUCT ===============-->
+            <section class="container section section__height" id="product">
+                <h2 class="section__title">Product</h2>
+            </section>
+
+            <!--=============== PRICING ===============-->
+            <section class="container section section__height" id="pricing">
+                <h2 class="section__title">Pricing</h2>
+            </section>
+
+            <!--=============== PORTFOLIO ===============-->
+            <section class="container section section__height" id="photography">
+                <h2 class="section__title">Photography</h2>
+            </section>
+
+            <!--=============== DESIGN ===============-->
+            <section class="container section section__height" id="design">
+                <h2 class="section__title">Design</h2>
+            </section>
+        </main>
+        
+
+        <!--=============== MAIN JS ===============-->
+        <script type="text/javascript">
+            /*=============== SCROLL SECTIONS ACTIVE LINK ===============*/
+            const sections = document.querySelectorAll('section[id]')
+            function scrollActive(){
+                const scrollY = window.pageYOffset
+
+                sections.forEach(current =>{
+                    const sectionHeight = current.offsetHeight,
+                        sectionTop = current.offsetTop - 50,
+                        sectionId = current.getAttribute('id')
+
+                    if(scrollY > sectionTop && scrollY <= sectionTop + sectionHeight){
+                        document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.add('active-link')
+                    }else{
+                        document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.remove('active-link')
+                    }
+                })
+            }
+            window.addEventListener('scroll', scrollActive)
+            /*=============== CHANGE BACKGROUND HEADER ===============*/
+            function scrollHeader(){
+                const header = document.getElementById('header')
+                // When the scroll is greater than 80 viewport height, add the scroll-header class to the header tag
+                if(this.scrollY >= 80) header.classList.add('scroll-header'); else header.classList.remove('scroll-header')
+            }
+            window.addEventListener('scroll', scrollHeader)
+        </script>
+    </body>
+</html>
